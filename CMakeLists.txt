@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(hesai_lidar)
+project(hesai_64_lidar)
 
 # Compile as C++11, supported in ROS Kinetic and newer
 add_compile_options(-std=c++11)
@@ -59,7 +59,7 @@ target_include_directories(PandarGeneralSDK PRIVATE
     ${catkin_INCLUDE_DIRS}
 )
 
-target_link_libraries(PandarGeneralSDK 
+target_link_libraries(PandarGeneralSDK
     PandarGeneral
     ${Boost_LIBRARIES}
     ${PCL_IO_LIBRARIES}
@@ -68,11 +68,13 @@ target_link_libraries(PandarGeneralSDK
 )
 
 ###hesai node
-add_executable(hesai_lidar_node 
+set(HESAI_NODE hesai_64_lidar_node)
+
+add_executable(${HESAI_NODE}
     src/main.cc
 )
 
-target_include_directories(hesai_lidar_node PRIVATE
+target_include_directories(${HESAI_NODE} PRIVATE
     src/PandarGeneral/include
     src/PandarGeneral/src/PandarGeneralRaw/include
     ${PCL_INCLUDE_DIRS}
@@ -80,14 +82,14 @@ target_include_directories(hesai_lidar_node PRIVATE
     ${Boost_INCLUDE_DIRS}
 )
 
-target_link_libraries(hesai_lidar_node 
+target_link_libraries(${HESAI_NODE}
     ${catkin_LIBRARIES}
     ${PCL_IO_LIBRARIES}
     PandarGeneralSDK
 )
 
 install(TARGETS
-    hesai_lidar_node
+    ${HESAI_NODE}
     PandarGeneral
     PandarGeneralSDK
     ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
