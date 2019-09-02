@@ -9,10 +9,10 @@
 	<arg name="laser_count"  default="64"/>
 	<arg name="pcldata_type"  default="0"/>
 	<arg name="lidar_type" default=""/>
-	<arg name="lidar_correction_file"  default="$(find hesai_lidar)/config/correction.csv"/>
-	<arg name="calibration_file"  default="$(find hesai_lidar)/config/calibration.yml"/>
+	<arg name="lidar_correction_file"  default="$(find hesai_64_lidar)/config/correction.csv"/>
+	<arg name="calibration_file"  default="$(find hesai_64_lidar)/config/calibration.yml"/>
 
-	<node pkg="hesai_lidar" name="hesai_lidar" type="hesai_lidar_node" output="screen" >
+	<node pkg="hesai_64_lidar" name="hesai_64_lidar" type="hesai_64_lidar_node" output="screen" >
 		<param name="pcap_file" type="string" value="$(arg pcap_file)"/>
 		<param name="server_ip" type="string" value="$(arg server_ip)"/>
 		<param name="server_port"  type="int" value="$(arg server_port)"/>
