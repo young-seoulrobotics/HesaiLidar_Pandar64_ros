@@ -45,6 +45,16 @@ static const float pandarGeneral_elev_angle_map[] = {
     -9.06f, -9.885f, -11.032f, -12.006f, -12.974f, -13.93f, -18.889f, -24.897f
 };
 
+static const float pandarQT_elev_angle_map[] = {
+    -52.584f, -50.225f, -47.996f, -45.877f, -43.848f, -41.894f, -40.003f, -38.166f, -36.376f,
+    -34.626f, -32.912f, -31.228f, -29.573f, -27.941f, -26.332f, -24.742f, -23.152f,-21.596f,
+    -20.054f, -18.524f, -17.005f, -15.496f, -13.996f, -12.504f, -11.018f, -9.537f, -8.062f,
+    -6.591f, -5.123f, -3.657f, -2.194f, -0.731f, 0.732f, 2.196f, 3.66f, 5.127f, 6.596f,
+    8.068f, 9.545f, 11.026f, 12.513f, 14.007f, 15.509f, 17.019f, 18.539f, 20.069f,
+    21.613f, 23.17f, 24.724f, 26.312f, 27.92f, 29.55f, 31.204f, 32.886f, 34.599f,
+    36.347f, 38.135f, 39.97f, 41.859f, 43.81f, 45.837f, 47.953f, 50.18f, 52.536f
+};
+
 // Line 40 Lidar azimuth Horizatal offset ,  Line 1 - Line 40
 static const float pandar40p_horizatal_azimuth_offset_map[] = {
     -1.042f, -1.042f, -1.042f, -1.042f, -1.042f, -1.042f, 3.125f, -5.208f, \
@@ -65,13 +75,35 @@ static const float pandarGeneral_horizatal_azimuth_offset_map[] = {
     -1.042f, -1.042f, -1.042f, -1.042f, -1.042f, -1.042f, -1.042f, -1.042f
 };
 
-static const float pandar20_elev_angle_map[] = {
+static const float pandarQT_horizatal_azimuth_offset_map[] = {
+  8.715, 8.29, 7.938, 7.642, 7.388, 
+  7.168, 6.976, 6.806, 6.655, 6.521, 6.4, 6.291, 6.193, 6.104, 6.024, 
+  5.951, -5.361, -5.306, -5.257, -5.212, -5.172, -5.137, -5.105, -5.077, -5.052, 
+  -5.031, -5.013, -4.999, -4.987, -4.978, -4.972, -4.969, 5.454, 5.457, 5.464, 
+  5.473, 5.486, 5.502, 5.522, 5.546, 5.573, 5.604, 5.639, 5.678, 5.722, 
+  5.771, 5.825, 5.885, -5.421, -5.487, -5.561, -5.642, -5.733, -5.832, -5.944, 
+  -6.068, -6.207, -6.365, -6.544, -6.748, -6.986, -7.264, -7.595, -7.995
+};
+
+static const float pandar20A_elev_angle_map[] = {
+  8.0f, 5.0f, 3.0f, 2.0f, 1.67f, 1.0f, 0.33f, -0.33f, \
+  -1.0f, -2.0f, -3.0f, -4.0f, -5.0f, -6.0f, -8.0f, -10.0f, \
+  -12.0f, -14.0f, -19.0f, -25.0f
+};
+
+static const float pandar20A_horizatal_azimuth_offset_map[] = {
+  -1.042f, -1.042f, -1.042f, -1.042f, 3.125f, -1.042f, -5.208f, 3.125f, \
+  -1.042f, -1.042f, -1.042f, -1.042f, -1.042f, -1.042f, -1.042f, -1.042f, \
+  -1.042f, -1.042f, -1.042f, -1.042f
+};
+
+static const float pandar20B_elev_angle_map[] = {
   3.058 ,2.046 ,1.706 ,1.031 ,0.355 ,0.018 ,-0.319 ,-0.995 ,
   -1.67 ,-2.347 ,-3.022 ,-4.032 ,-5.039 ,-6.043 ,-7.045 ,-8.041 ,
   -10.027 ,-11.988 ,-13.912 ,-18.871
 };
 
-static const float pandar20_horizatal_azimuth_offset_map[] = {
+static const float pandar20B_horizatal_azimuth_offset_map[] = {
   -1.042 ,-1.042 ,3.125 ,-1.042 ,-5.208 ,-1.042 ,3.125 ,-1.042 ,-5.208 ,
   3.125 ,-1.042 ,-1.042 ,-1.042 ,-1.042 ,-1.042 ,-1.042 ,-1.042 ,-1.042,
   -1.042 ,-1.042
@@ -313,14 +345,27 @@ PandarGeneral_Internal::PandarGeneral_Internal(
 
   for (int i = 0; i < HS_LIDAR_L64_UNIT_NUM; i++) {
     // for all the laser offset 
-    General_elev_angle_map_[i] = pandarGeneral_elev_angle_map[i];
-    General_horizatal_azimuth_offset_map_[i] = \
-        pandarGeneral_horizatal_azimuth_offset_map[i];
+    if (frame_id.compare("PandarQT") == 0) {
+      General_elev_angle_map_[i] = pandarQT_elev_angle_map[i];
+      General_horizatal_azimuth_offset_map_[i] = pandarQT_horizatal_azimuth_offset_map[i];
+    } else {
+      General_elev_angle_map_[i] = pandarGeneral_elev_angle_map[i];
+      General_horizatal_azimuth_offset_map_[i] = pandarGeneral_horizatal_azimuth_offset_map[i];      
+    }
   }
 
   for (int i = 0; i < HS_LIDAR_L20_UNIT_NUM; i++) {
-    Pandar20_elev_angle_map_[i] = pandar20_elev_angle_map[i];
-    Pandar20_horizatal_azimuth_offset_map_[i] = pandar20_horizatal_azimuth_offset_map[i];
+    if (frame_id.compare("Pandar20A") == 0) {
+      Pandar20_elev_angle_map_[i] = pandar20A_elev_angle_map[i];
+      Pandar20_horizatal_azimuth_offset_map_[i] = pandar20A_horizatal_azimuth_offset_map[i];
+    } else if (frame_id.compare("Pandar20B") == 0) {
+      Pandar20_elev_angle_map_[i] = pandar20B_elev_angle_map[i];
+      Pandar20_horizatal_azimuth_offset_map_[i] = pandar20B_horizatal_azimuth_offset_map[i];
+    } else {
+      Pandar20_elev_angle_map_[i] = pandar20A_elev_angle_map[i];
+      Pandar20_horizatal_azimuth_offset_map_[i] = pandar20A_horizatal_azimuth_offset_map[i];
+    }
+
   }
 
   frame_id_ = frame_id;

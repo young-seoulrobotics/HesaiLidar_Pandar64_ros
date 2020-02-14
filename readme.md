@@ -47,6 +47,8 @@ for Pandar20B
 $ roslaunch hesai_lidar hesai_lidar.launch lidar_type:="Pandar20B"
 for Pandar40P
 $ roslaunch hesai_lidar hesai_lidar.launch lidar_type:="Pandar40P"
+for PandarQT
+$ roslaunch hesai_lidar hesai_lidar.launch lidar_type:="PandarQT"
 ```
 2. The driver will publish a PointCloud message in the topic.
 ```
@@ -64,5 +66,3 @@ LiDAR default IP address is 192.168.1.201
 |lidar_recv_port |2368|
 |gps_recv_port  |10110|
 |start_angle |0|
-
-abc

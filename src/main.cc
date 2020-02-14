@@ -42,6 +42,7 @@ public:
 
     if ((strcmp(lidarType.c_str(), "Pandar20A") != 0) && \
         (strcmp(lidarType.c_str(), "Pandar20B") != 0) && \
+        (strcmp(lidarType.c_str(), "PandarQT") != 0) && \
         (strcmp(lidarType.c_str(), "Pandar40P") != 0)) {
       lidarType = string("Pandar64");
     }
